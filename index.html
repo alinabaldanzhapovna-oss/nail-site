@@ -117,7 +117,7 @@
         <!-- Маникюр -->
         <div class="price-block">
             <h3 class="price-block-title">Manicure</h3>
-            <div class="price-row" onclick="selectService('Маникюр без покрытия', 1000)">
+            <div class="price-row" onclick="selectService('Маникюр без покрытия', 1200)">
                 <span class="price-name">Маникюр без покрытия</span>
                 <span class="price-dots"></span>
                 <span class="price-value">1200₽</span>
@@ -133,12 +133,12 @@
                 <span class="price-value">1500₽</span>
             </div>
             <div class="price-row" onclick="selectService('Ремонт ногтя', 75)">
-                <span class="price-name">Ремонт ногтя</span>
+                <span class="price-name">Ремонт</span>
                 <span class="price-dots"></span>
                 <span class="price-value">50-100₽</span>
             </div>
             <div class="price-row" onclick="selectService('Дизайн', 75)">
-                <span class="price-name">Дизайн (1 ноготь)</span>
+                <span class="price-name">Дизайн</span>
                 <span class="price-dots"></span>
                 <span class="price-value">50-100₽</span>
             </div>
@@ -162,7 +162,7 @@
                 <span class="price-dots"></span>
                 <span class="price-value">2000₽</span>
             </div>
-            <div class="price-row" onclick="selectService('Аппаратный педикюр', 2000)">
+            <div class="price-row" onclick="selectService('Аппаратный педикюр', 2300)">
                 <span class="price-name">Аппаратный педикюр</span>
                 <span class="price-dots"></span>
                 <span class="price-value">2300₽</span>
@@ -172,7 +172,7 @@
                 <span class="price-dots"></span>
                 <span class="price-value">2500₽</span>
             </div>
-            <div class="price-row" onclick="selectService('Обработка стоп', 900)">
+            <div class="price-row" onclick="selectService('Обработка стоп', 1000)">
                 <span class="price-name">Обработка стоп</span>
                 <span class="price-dots"></span>
                 <span class="price-value">1000₽</span>
@@ -181,11 +181,15 @@
 
         <!-- Уведомление -->
         <div id="notification" class="notification">
-            <div class="notification-text">
-                <strong id="notif-service"></strong>
-                <span id="notif-price"></span>
+            <div class="notification-content">
+                <span class="notif-icon">✓</span>
+                <div class="notif-text">
+                    <div class="notif-title">Выбрано:</div>
+                    <div class="notif-service" id="notif-service"></div>
+                    <div class="notif-price" id="notif-price"></div>
+                </div>
             </div>
-            <button class="notif-btn" onclick="scrollToContact()">Записаться</button>
+            <button class="notif-btn" onclick="goToBooking()">Записаться</button>
         </div>
     </div>
 </section>
@@ -311,10 +315,48 @@
     display: flex;
 }
 
-.notification-text {
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.notif-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.notif-text {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 3px;
+}
+
+.notif-title {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.notif-service {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+.notif-price {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 1rem;
 }
 
 .notif-btn {
@@ -327,11 +369,13 @@
     font-weight: 500;
     white-space: nowrap;
     transition: all 0.3s;
+    font-family: 'Inter', sans-serif;
 }
 
 .notif-btn:hover {
     background: var(--accent-dark);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(201, 168, 156, 0.4);
 }
 
 @media (max-width: 768px) {
@@ -355,8 +399,73 @@
         flex-direction: column;
         text-align: center;
     }
+
+    .notification-content {
+        flex-direction: column;
+    }
 }
 
+</style>
+
+<script>
+let currentService = null;
+let currentPrice = null;
+
+// ВАШ НОМЕР ТЕЛЕФОНА (замените на свой)
+const PHONE_NUMBER = '79140510022';
+
+function selectService(name, price) {
+    // Убираем выделение со всех
+    document.querySelectorAll('.price-row').forEach(row => {
+        row.classList.remove('selected');
+    });
+    
+    // Выделяем текущую
+    event.currentTarget.classList.add('selected');
+    
+    // Сохраняем выбранную услугу
+    currentService = name;
+    currentPrice = price;
+    
+    // Показываем уведомление
+    document.getElementById('notif-service').textContent = name;
+    document.getElementById('notif-price').textContent = price + '₽';
+    document.getElementById('notification').classList.add('show');
+    
+    // Скрываем через 5 секунд
+    setTimeout(() => {
+        document.getElementById('notification').classList.remove('show');
+    }, 5000);
+}
+
+function goToBooking() {
+    if (!currentService) {
+        alert('Пожалуйста, выберите услугу из прайса');
+        return;
+    }
+    
+    // Формируем сообщение 
+    const message = `Здравствуйте! Хочу записаться:%0A🔸 Услуга: ${currentService}%0A🔸 Стоимость: ${currentPrice}₽%0A%0AПодскажите, есть ли свободное время?`;
+    
+    // Открываем App с предзаполненным сообщением
+    const maxUrl = `https://max.ru/${PHONE_NUMBER}?text=${message}`;
+    window.open(maxUrl, '_blank');
+    
+    // Альтернативно можно открыть Telegram:
+    // const telegramUrl = `https://t.me/ВАШ_НИК?text=${message}`;
+    // window.open(telegramUrl, '_blank');
+}
+
+// Закрытие уведомления по клику вне его
+document.addEventListener('click', function(e) {
+    const notification = document.getElementById('notification');
+    if (!notification.contains(e.target) && !e.target.closest('.price-row')) {
+        notification.classList.remove('show');
+    }
+});
+</script>
+
+<style>
 /* Фикс для Safari */
 .price-value {
     -webkit-font-smoothing: antialiased;
@@ -368,31 +477,6 @@
 }
 </style>
 
-<script>
-function selectService(name, price) {
-    // Убираем выделение со всех
-    document.querySelectorAll('.price-row').forEach(row => {
-        row.classList.remove('selected');
-    });
-    
-    // Выделяем текущую
-    event.currentTarget.classList.add('selected');
-    
-    // Показываем уведомление
-    document.getElementById('notif-service').textContent = name;
-    document.getElementById('notif-price').textContent = price + '₽';
-    document.getElementById('notification').classList.add('show');
-    
-    // Скрываем через 4 секунды
-    setTimeout(() => {
-        document.getElementById('notification').classList.remove('show');
-    }, 4000);
-}
-
-function scrollToContact() {
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-}
-</script>
 
     <section id="portfolio" class="container">
         <h2 class="section-title">Мои работы</h2>
