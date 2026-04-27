@@ -110,50 +110,300 @@
         </div>
     </section>
 
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title">Услуги и цены</h2>
-            <div class="price-grid">
-                <div class="price-card">
-                    <h3>Маникюр + покрытие</h3>
-                    <p>Комбинированный/аппаратный, выравнивание, однотонный гель-лак</p>
-                    <div class="price">1 800 ₽</div>
-                </div>
-                <div class="price-card">
-                    <h3>Педикюр </h3>
-                    <p>Покрытие гель-лаком, уход</p>
-                    <div class="price">2 200 ₽</div>
-                </div>
-                <div class="price-card">
-                    <h3>Наращивание ногтей</h3>
-                    <p>Гель/полигель, коррекция формы и длины, прочное покрытие</p>
-                    <div class="price">2 500 ₽</div>
-                </div>
-                <div class="price-card">
-                    <h3>Педикюр + обработка стопы</h3>
-                    <p>Ванночка не используется</p>
-                    <div class="price">2 000 ₽</div>
-                </div>
-                <div class="price-card">
-                    <h3>Дизайн (маникюр/педикюр)</h3>
-                    <p>Френч, стемпинг, ручная роспись, стразы, слайдеры, фольга</p>
-                    <div class="price">от 150 ₽/ноготь</div>
-                </div>
-                <div class="price-card">
-                    <h3>Снятие + восстановление</h3>
-                    <p>Бережное снятие, укрепление базы, IBX/укрепляющие системы</p>
-                    <div class="price">600 ₽</div>
-                </div>
+   <section id="services" class="services">
+    <div class="container">
+        <h2 class="section-title">Прайс-лист</h2>
+        
+        <!-- Маникюр -->
+        <div class="price-block">
+            <h3 class="price-block-title">Manicure</h3>
+            <div class="price-row" onclick="selectService('Маникюр без покрытия', 1000)">
+                <span class="price-name">Маникюр без покрытия</span>
+                <span class="price-dots"></span>
+                <span class="price-value">1200₽</span>
+            </div>
+            <div class="price-row" onclick="selectService('Маникюр с покрытием', 1800)">
+                <span class="price-name">Маникюр с покрытием</span>
+                <span class="price-dots"></span>
+                <span class="price-value">1800₽</span>
+            </div>
+            <div class="price-row" onclick="selectService('Японский маникюр', 1500)">
+                <span class="price-name">Японский маникюр</span>
+                <span class="price-dots"></span>
+                <span class="price-value">1500₽</span>
+            </div>
+            <div class="price-row" onclick="selectService('Ремонт ногтя', 75)">
+                <span class="price-name">Ремонт ногтя</span>
+                <span class="price-dots"></span>
+                <span class="price-value">50-100₽</span>
+            </div>
+            <div class="price-row" onclick="selectService('Дизайн', 75)">
+                <span class="price-name">Дизайн (1 ноготь)</span>
+                <span class="price-dots"></span>
+                <span class="price-value">50-100₽</span>
+            </div>
+            <div class="price-row" onclick="selectService('Френч', 300)">
+                <span class="price-name">Френч</span>
+                <span class="price-dots"></span>
+                <span class="price-value">300₽</span>
             </div>
         </div>
-    </section>
+
+        <!-- Педикюр -->
+        <div class="price-block">
+            <h3 class="price-block-title">Pedicure</h3>
+            <div class="price-row" onclick="selectService('Обработка пальцев', 1500)">
+                <span class="price-name">Обработка пальцев</span>
+                <span class="price-dots"></span>
+                <span class="price-value">1500₽</span>
+            </div>
+            <div class="price-row" onclick="selectService('Обработка пальцев с покрытием', 2000)">
+                <span class="price-name">Обработка пальцев с покрытием</span>
+                <span class="price-dots"></span>
+                <span class="price-value">2000₽</span>
+            </div>
+            <div class="price-row" onclick="selectService('Аппаратный педикюр', 2000)">
+                <span class="price-name">Аппаратный педикюр</span>
+                <span class="price-dots"></span>
+                <span class="price-value">2300₽</span>
+            </div>
+            <div class="price-row" onclick="selectService('Педикюр с покрытием', 2500)">
+                <span class="price-name">Педикюр с покрытием</span>
+                <span class="price-dots"></span>
+                <span class="price-value">2500₽</span>
+            </div>
+            <div class="price-row" onclick="selectService('Обработка стоп', 900)">
+                <span class="price-name">Обработка стоп</span>
+                <span class="price-dots"></span>
+                <span class="price-value">1000₽</span>
+            </div>
+        </div>
+
+        <!-- Уведомление -->
+        <div id="notification" class="notification">
+            <div class="notification-text">
+                <strong id="notif-service"></strong>
+                <span id="notif-price"></span>
+            </div>
+            <button class="notif-btn" onclick="scrollToContact()">Записаться</button>
+        </div>
+    </div>
+</section>
+
+<style>
+.services {
+    background: var(--white);
+    padding: 70px 0;
+}
+
+.price-block {
+    margin-bottom: 40px;
+    padding: 30px;
+    background: var(--bg);
+    border-radius: 12px;
+}
+
+.price-block-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--accent);
+    font-style: italic;
+}
+
+.price-row {
+    display: flex;
+    align-items: center; /* было baseline */
+    justify-content: space-between;
+    padding: 15px 0; /* увеличили padding */
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 1px dotted #d4c4bc;
+    position: relative;
+    min-height: 45px; /* добавили минимальную высоту */
+}
+
+.price-row:hover {
+    background: rgba(201, 168, 156, 0.1);
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0 -10px;
+    border-radius: 6px;
+    border-bottom-color: var(--accent);
+}
+
+.price-row.selected {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 -15px;
+    border-radius: 8px;
+    border-bottom: none;
+    box-shadow: 0 4px 12px rgba(201, 168, 156, 0.3);
+}
+
+.price-name {
+    font-size: 0.95rem;
+    color: var(--text);
+    flex-shrink: 0;
+    padding-right: 10px;
+}
+
+.price-row.selected .price-name {
+    color: white;
+}
+
+.price-dots {
+    flex-grow: 1;
+    border-bottom: 1px dotted #c9a89c;
+    margin: 0 10px;
+    position: relative;
+    top: -3px;
+}
+
+.price-row.selected .price-dots {
+    border-bottom-color: rgba(255,255,255,0.5);
+}
+
+.price-value {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 1.05rem;
+    flex-shrink: 0;
+    min-width: 80px;
+    text-align: right;
+    line-height: 1.4;
+    padding-top: 2px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.price-row.selected .price-value {
+    color: white;
+}
+
+/* Уведомление */
+.notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: white;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    display: none;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+    border-left: 4px solid var(--accent);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(400px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.notification.show {
+    display: flex;
+}
+
+.notification-text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.notif-btn {
+    padding: 10px 20px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s;
+}
+
+.notif-btn:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .price-block {
+        padding: 20px;
+    }
+    
+    .price-name {
+        font-size: 0.85rem;
+    }
+    
+    .price-value {
+        font-size: 0.95rem;
+        min-width: 60px;
+    }
+    
+    .notification {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Фикс для Safari */
+.price-value {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+.price-row {
+    overflow: visible;
+}
+</style>
+
+<script>
+function selectService(name, price) {
+    // Убираем выделение со всех
+    document.querySelectorAll('.price-row').forEach(row => {
+        row.classList.remove('selected');
+    });
+    
+    // Выделяем текущую
+    event.currentTarget.classList.add('selected');
+    
+    // Показываем уведомление
+    document.getElementById('notif-service').textContent = name;
+    document.getElementById('notif-price').textContent = price + '₽';
+    document.getElementById('notification').classList.add('show');
+    
+    // Скрываем через 4 секунды
+    setTimeout(() => {
+        document.getElementById('notification').classList.remove('show');
+    }, 4000);
+}
+
+function scrollToContact() {
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
 
     <section id="portfolio" class="container">
         <h2 class="section-title">Мои работы</h2>
         <div class="portfolio-grid">
             <img src="aigfV-.jpg" class="portfolio-img" alt="Маникюр">
             <img src="dad.jpg" class="portfolio-img" alt="Педикюр">
+            <img src="It2.jpg" class="portfolio-img" alt="Педикюр">
             <img src="PPuM.jpg" class="portfolio-img" alt="Дизайн ногтей">
+            <img src="12.jpg" class="portfolio-img" alt="Дизайн ногтей">
+            <img src="13.jpg" class="portfolio-img" alt="Дизайн ногтей">
+            <img src="14.jpg" class="portfolio-img" alt="Дизайн ногтей">
             <img src="VL.jpg" class="portfolio-img" alt="Комплексный уход">
         </div>
     </section>
@@ -166,7 +416,7 @@
                 <a href="https://t.me/ " class="contact-btn" target="_blank">MAX</a>
                 <a href="tel:+79140510022" class="contact-btn">Позвонить</a>
             </div>
-            <p class="address">г. Улан-Удэ, ул. Примерная, д. 10 <br>Ежедневно 10:00 – 21:00</p>
+            <p class="address">г. Улан-Удэ, ул. Бабушкина, 1, корпус 1, цокольный этаж <br> 10:00 – 21:00</p>
         </div>
     </section>
 
