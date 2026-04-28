@@ -41,9 +41,11 @@
         /* About */
         .about { display: grid; grid-template-columns: 1fr 1fr; gap: 45px; align-items: center; }
         /* Фикс для фото "О мастере" */
-.about-img {
-    height: auto !important;
-    object-fit: contain !important;
+        .about-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: top center; /* Показываем верхнюю часть (лицо) */
     max-height: 600px;
 }
 
