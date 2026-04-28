@@ -40,7 +40,13 @@
 
         /* About */
         .about { display: grid; grid-template-columns: 1fr 1fr; gap: 45px; align-items: center; }
-        .about-img { width: 100%; border-radius: 12px; box-shadow: var(--shadow); object-fit: cover; height: 450px; }
+        .about-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: top center; /* Показываем верхнюю часть (лицо) */
+    max-height: 600px;
+}
         .about-text h2 { font-size: 2.4rem; margin-bottom: 18px; }
 
         /* Services */
@@ -73,6 +79,19 @@
             .about-img { height: 320px; }
             .nav-links { display: none; }
         }
+        /* Фикс для фото "О мастере" */
+.about-img {
+    height: auto !important;
+    object-fit: contain !important;
+    max-height: 600px;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+    .about-img {
+        max-height: 400px;
+    }
+}
     </style>
 </head>
 <body>
@@ -100,7 +119,7 @@
 
     <section id="about" class="container">
         <div class="about">
-            <img src="Снимок экрана 2026-04-26 в 20.01.27.png" alt="Мастер за работой" class="about-img">
+            <img src="a0zoib9.jpg" alt="Мастер за работой" class="about-img">
             <div class="about-text">
                 <h2>Привет, я Суржена</h2>
                 <p>Сертифицированный мастер маникюра и педикюра с опытом более 5 лет. </p>
@@ -432,10 +451,10 @@ function selectService(name, price) {
     document.getElementById('notif-price').textContent = price + '₽';
     document.getElementById('notification').classList.add('show');
     
-    // Скрываем через 5 секунд
+    // Скрываем через 3 секунд
     setTimeout(() => {
         document.getElementById('notification').classList.remove('show');
-    }, 5000);
+    }, 3000);
 }
 
 function goToBooking() {
@@ -448,7 +467,7 @@ function goToBooking() {
     const message = `Здравствуйте! Хочу записаться:%0A🔸 Услуга: ${currentService}%0A🔸 Стоимость: ${currentPrice}₽%0A%0AПодскажите, есть ли свободное время?`;
     
     // Открываем App с предзаполненным сообщением
-    const maxUrl = `https://max.ru/${PHONE_NUMBER}?text=${message}`;
+    const maxUrl = `https://max.ru/u/f9LHodD0cOKNvqNa-wf347-QIyP4PvfWCOMSsD0pfW3L1CgTvBNxaEkZgUA`;
     window.open(maxUrl, '_blank');
     
     // Альтернативно можно открыть Telegram:
@@ -497,7 +516,7 @@ document.addEventListener('click', function(e) {
             <h2 class="section-title">Запись и контакты</h2>
             <p>Выберите удобный способ связи. Отвечаю в течение 15 минут!</p>
             <div class="contact-links">
-                <a href="https://max.ru/phone/+79140510022" class="contact-btn" target="_blank">MAX</a>
+                <a href="https://max.ru/u/f9LHodD0cOKNvqNa-wf347-QIyP4PvfWCOMSsD0pfW3L1CgTvBNxaEkZgUA" class="contact-btn" target="_blank">MAX</a>
                 <a href="tel:+79140510022" class="contact-btn">Позвонить</a>
             </div>
             <p class="address">г. Улан-Удэ, ул. Бабушкина, 1, корпус 1, цокольный этаж <br> 10:00 – 21:00</p>
